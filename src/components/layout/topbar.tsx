@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { Logo } from "@/components/layout/logo";
 import { SidebarNav } from "@/components/layout/sidebar-nav";
@@ -15,6 +16,23 @@ export function Topbar({
   profile?: Profile | null;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Permite fechar o menu mobile com a tecla ESC
+  useEffect(() => {
+    if (!menuOpen) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        setMenuOpen(false);
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [menuOpen]);
 
   return (
     <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur-md">
@@ -69,23 +87,56 @@ export function Topbar({
         <div className="flex items-center justify-end flex-1 min-w-0 pointer-events-none" aria-hidden="true" />
       </div>
 
-      {/* Menu Responsivo Suspenso em Telas Menores */}
-      {menuOpen && (
-        <>
-          <button
-            type="button"
-            aria-label="Fechar menu"
+      {/* Menu Responsivo Suspenso em Telas Menores - Portaled para document.body para eliminar qualquer conflito de stacking context ou corte */}
+      {menuOpen && mounted && createPortal(
+        <div className="fixed inset-0 z-50 md:hidden flex flex-col">
+          {/* Backdrop escuro com blur suave que fecha apenas ao clicar FORA do menu */}
+          <div
+            className="fixed inset-0 bg-black/50 backdrop-blur-2xs transition-opacity animate-in fade-in"
             onClick={() => setMenuOpen(false)}
-            className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-2xs md:hidden"
+            aria-hidden="true"
           />
-          <div className="absolute left-0 right-0 top-full z-50 border-b border-border bg-card p-4 shadow-xl md:hidden max-h-[85vh] overflow-y-auto">
+
+          {/* Painel do Menu suspenso */}
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu de Navegação"
+            onClick={(e) => e.stopPropagation()}
+            className="relative z-10 flex flex-col w-full max-h-[88vh] border-b border-border bg-card p-5 shadow-2xl overflow-y-auto animate-in slide-in-from-top-3 duration-150"
+          >
+            <div className="flex items-center justify-between pb-3 mb-2 border-b border-border/70">
+              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
+                Navegação
+              </span>
+              <button
+                type="button"
+                onClick={() => setMenuOpen(false)}
+                className="rounded-lg p-1.5 text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors cursor-pointer"
+                aria-label="Fechar menu"
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  width="18"
+                  height="18"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
+                  <path d="M6 6l12 12M18 6L6 18" />
+                </svg>
+              </button>
+            </div>
+
             <SidebarNav
               isAdmin={isAdmin}
               profile={profile}
               onNavigate={() => setMenuOpen(false)}
             />
           </div>
-        </>
+        </div>,
+        document.body,
       )}
     </header>
   );

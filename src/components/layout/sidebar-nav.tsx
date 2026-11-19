@@ -174,12 +174,22 @@ export function SidebarNav({
   const pathname = usePathname();
   const { openSettings } = useAtelierSettings();
 
+  function handleOpenSettings(e: React.MouseEvent) {
+    e.stopPropagation();
+    openSettings();
+    if (onNavigate) {
+      setTimeout(() => {
+        onNavigate();
+      }, 50);
+    }
+  }
+
   const navItems = isAdmin
     ? [...baseNavItems, adminNavItem]
     : baseNavItems;
 
   return (
-    <div className="flex flex-col justify-between h-full gap-6">
+    <div className="flex flex-col justify-between min-h-full h-full gap-6">
         {/* Bloco Superior: Navegação e Configurar Ateliê */}
         <div className="flex flex-col gap-1.5">
           <nav className="flex flex-col gap-1">
@@ -218,11 +228,7 @@ export function SidebarNav({
           <div className="pt-2 mt-1 border-t border-border/70">
             <button
               type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                openSettings();
-                onNavigate?.();
-              }}
+              onClick={handleOpenSettings}
               className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-foreground/80 hover:bg-muted/70 hover:text-foreground transition-all group text-left cursor-pointer select-none"
             >
               <span className="shrink-0 text-muted-foreground group-hover:text-primary transition-colors">
@@ -253,7 +259,7 @@ export function SidebarNav({
             target="_blank"
             rel="noopener noreferrer"
             onClick={onNavigate}
-            className="flex items-center gap-2.5 rounded-xl px-3.5 py-2 text-xs font-medium text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-all group"
+            className="flex items-center gap-2.5 rounded-xl px-3.5 py-2 text-xs font-medium text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-all group cursor-pointer"
           >
             <svg
               viewBox="0 0 24 24"
@@ -275,8 +281,7 @@ export function SidebarNav({
           <form action={signOutAction} className="w-full">
             <button
               type="submit"
-              onClick={onNavigate}
-              className="flex w-full items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-medium text-muted-foreground hover:bg-rosa-bg/70 hover:text-rosa-foreground hover:border-rosa/40 border border-transparent transition-all group text-left"
+              className="flex w-full items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-xs font-medium text-muted-foreground hover:bg-rosa-bg/70 hover:text-rosa-foreground hover:border-rosa/40 border border-transparent transition-all group text-left cursor-pointer select-none"
               title="Encerrar sessão"
             >
               <svg

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { cleanPhoneNumberBR, getWhatsAppUrl } from "@/lib/whatsapp";
@@ -22,15 +23,31 @@ export function WhatsAppPreviewModal({
   initialMessage,
   title = "Aviso do WhatsApp",
 }: WhatsAppPreviewModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [message, setMessage] = useState(initialMessage);
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     setMessage(initialMessage);
     setCopied(false);
   }, [initialMessage, isOpen]);
 
-  if (!isOpen) return null;
+  useEffect(() => {
+    if (!isOpen) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !mounted) return null;
 
   const cleanedPhone = cleanPhoneNumberBR(phone);
   const waUrl = getWhatsAppUrl({ phone, text: message });
@@ -51,14 +68,21 @@ export function WhatsAppPreviewModal({
     onClose();
   }
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop com blur suave */}
       <div
-        className="fixed inset-0 -z-10"
+        className="fixed inset-0 bg-black/50 backdrop-blur-2xs transition-opacity animate-in fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative flex w-full max-w-lg flex-col rounded-2xl border border-border bg-card p-6 shadow-2xl">
+      {/* Card do Modal */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+        className="relative z-10 flex w-full max-w-lg flex-col rounded-2xl border border-border bg-card p-6 shadow-2xl animate-in zoom-in-95 duration-150"
+      >
         {/* Cabeçalho */}
         <div className="mb-4 flex items-start justify-between border-b border-border/80 pb-3">
           <div>
@@ -70,7 +94,7 @@ export function WhatsAppPreviewModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-1 text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors"
+            className="rounded-lg p-1 text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors cursor-pointer"
             aria-label="Fechar"
           >
             <svg
@@ -111,7 +135,7 @@ export function WhatsAppPreviewModal({
             type="button"
             variant="secondary"
             onClick={handleCopy}
-            className="text-xs sm:text-sm px-3"
+            className="text-xs sm:text-sm px-3 cursor-pointer"
           >
             {copied ? "✓ Mensagem copiada!" : "Copiar texto"}
           </Button>
@@ -121,7 +145,7 @@ export function WhatsAppPreviewModal({
               type="button"
               variant="ghost"
               onClick={onClose}
-              className="text-xs sm:text-sm"
+              className="text-xs sm:text-sm cursor-pointer"
             >
               Cancelar
             </Button>
@@ -129,7 +153,7 @@ export function WhatsAppPreviewModal({
               type="button"
               onClick={handleSend}
               disabled={!cleanedPhone}
-              className="bg-[#4E6E49] text-white hover:bg-[#3F5B3B] border-transparent shadow-xs text-xs sm:text-sm font-medium"
+              className="bg-[#4E6E49] text-white hover:bg-[#3F5B3B] border-transparent shadow-xs text-xs sm:text-sm font-medium cursor-pointer"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -145,6 +169,7 @@ export function WhatsAppPreviewModal({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

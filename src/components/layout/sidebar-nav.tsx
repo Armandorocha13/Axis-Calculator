@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { signOutAction } from "@/lib/auth/actions";
-import { AtelierSettingsModal } from "@/components/settings/atelier-settings-modal";
+import { useAtelierSettings } from "@/components/settings/atelier-settings-context";
 import type { Profile } from "@/lib/types/database.types";
 
 interface NavItem {
@@ -151,15 +151,14 @@ export function SidebarNav({
   onNavigate?: () => void;
 }) {
   const pathname = usePathname();
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const { openSettings } = useAtelierSettings();
 
   const navItems = isAdmin
     ? [...baseNavItems, adminNavItem]
     : baseNavItems;
 
   return (
-    <>
-      <div className="flex flex-col justify-between h-full gap-6">
+    <div className="flex flex-col justify-between h-full gap-6">
         {/* Bloco Superior: Navegação e Configurar Ateliê */}
         <div className="flex flex-col gap-1.5">
           <nav className="flex flex-col gap-1">
@@ -198,11 +197,12 @@ export function SidebarNav({
           <div className="pt-2 mt-1 border-t border-border/70">
             <button
               type="button"
-              onClick={() => {
-                setSettingsOpen(true);
+              onClick={(e) => {
+                e.stopPropagation();
+                openSettings();
                 onNavigate?.();
               }}
-              className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-foreground/80 hover:bg-muted/70 hover:text-foreground transition-all group text-left"
+              className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-foreground/80 hover:bg-muted/70 hover:text-foreground transition-all group text-left cursor-pointer select-none"
             >
               <span className="shrink-0 text-muted-foreground group-hover:text-primary transition-colors">
                 <svg
@@ -278,12 +278,5 @@ export function SidebarNav({
           </form>
         </div>
       </div>
-
-      <AtelierSettingsModal
-        isOpen={settingsOpen}
-        onClose={() => setSettingsOpen(false)}
-        profile={profile}
-      />
-    </>
   );
 }

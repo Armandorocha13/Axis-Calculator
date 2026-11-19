@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -23,6 +24,7 @@ export function AtelierSettingsModal({
   onClose,
   profile,
 }: AtelierSettingsModalProps) {
+  const [mounted, setMounted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -30,6 +32,22 @@ export function AtelierSettingsModal({
   const [template, setTemplate] = useState(DEFAULT_WHATSAPP_TEMPLATE);
   const [showPreview, setShowPreview] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Fecha o modal ao pressionar ESC
+  useEffect(() => {
+    if (!isOpen) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
 
   // Inicializa o modelo a partir do profile salvo ou do localStorage ou do padrão
   useEffect(() => {
@@ -51,7 +69,7 @@ export function AtelierSettingsModal({
     setSuccess(false);
   }, [isOpen, profile?.whatsapp_template]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !mounted) return null;
 
   function handleInsertVariable(variableTag: string) {
     const textarea = textareaRef.current;
@@ -128,14 +146,21 @@ export function AtelierSettingsModal({
     businessName: profile?.business_name || "Arte em Conta",
   });
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop transparente com blur suave que fecha ao clicar fora */}
       <div
-        className="fixed inset-0 -z-10"
+        className="fixed inset-0 bg-black/50 backdrop-blur-2xs transition-opacity animate-in fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative flex w-full max-w-2xl max-h-[92vh] flex-col rounded-2xl border border-border bg-card shadow-2xl overflow-hidden">
+      {/* Card do Modal */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+        className="relative z-10 flex w-full max-w-2xl max-h-[92vh] flex-col rounded-2xl border border-border bg-card shadow-2xl overflow-hidden animate-in zoom-in-95 duration-150"
+      >
         {/* Cabeçalho */}
         <div className="flex items-center justify-between border-b border-border/80 px-6 py-4 bg-card shrink-0">
           <div>
@@ -351,6 +376,7 @@ export function AtelierSettingsModal({
           </div>
         </form>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import {
   Table,
   TableBody,
@@ -42,7 +44,24 @@ export function CustomerHistoryModal({
   isOpen,
   onClose,
 }: CustomerHistoryModalProps) {
-  if (!isOpen || !customer) return null;
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        onClose();
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen, onClose]);
+
+  if (!isOpen || !customer || !mounted) return null;
 
   const totalPedidos = orders.length;
   const totalGasto = orders.reduce(
@@ -50,18 +69,25 @@ export function CustomerHistoryModal({
     0,
   );
 
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
+  return createPortal(
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      {/* Backdrop com blur suave */}
       <div
-        className="fixed inset-0 -z-10"
+        className="fixed inset-0 bg-black/50 backdrop-blur-2xs transition-opacity animate-in fade-in"
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative flex w-full max-w-2xl flex-col max-h-[90vh] rounded-lg border border-border bg-card p-6 shadow-xl">
+      {/* Card do Modal */}
+      <div
+        role="dialog"
+        aria-modal="true"
+        onClick={(e) => e.stopPropagation()}
+        className="relative z-10 flex w-full max-w-2xl flex-col max-h-[90vh] rounded-2xl border border-border bg-card p-6 shadow-2xl animate-in zoom-in-95 duration-150"
+      >
         {/* Cabeçalho */}
-        <div className="mb-4 flex items-start justify-between border-b border-border pb-3">
+        <div className="mb-4 flex items-start justify-between border-b border-border/80 pb-3">
           <div>
-            <h2 className="text-base font-semibold">Histórico de Pedidos</h2>
+            <h2 className="text-base font-semibold text-foreground">Histórico de Pedidos</h2>
             <p className="text-sm font-medium text-muted-foreground mt-0.5">
               {customer.name}
               {customer.phone && (
@@ -74,7 +100,7 @@ export function CustomerHistoryModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+            className="rounded-lg p-1 text-muted-foreground hover:bg-muted/70 hover:text-foreground transition-colors cursor-pointer"
             aria-label="Fechar"
           >
             <svg
@@ -90,22 +116,17 @@ export function CustomerHistoryModal({
           </button>
         </div>
 
-        {/* Resumo do Cliente: Total de Pedidos e Total Gasto */}
-        <div className="mb-4 grid grid-cols-2 gap-3">
-          <div className="rounded-xl border border-border bg-muted/40 p-3.5">
-            <span className="text-xs uppercase tracking-wide text-muted-foreground font-semibold">
-              Total de pedidos
-            </span>
-            <p className="mt-1 text-xl font-bold text-foreground">
+        {/* Resumo do Cliente */}
+        <div className="mb-4 grid grid-cols-2 gap-3 rounded-xl border border-border bg-muted/40 p-3 text-xs sm:grid-cols-2">
+          <div>
+            <span className="text-muted-foreground">Total de pedidos:</span>
+            <p className="text-sm font-semibold text-foreground mt-0.5">
               {totalPedidos} {totalPedidos === 1 ? "pedido" : "pedidos"}
             </p>
           </div>
-
-          <div className="rounded-xl border border-border bg-muted/40 p-3.5">
-            <span className="text-xs uppercase tracking-wide text-muted-foreground font-semibold">
-              Valor total já gasto
-            </span>
-            <p className="mt-1 text-xl font-bold text-foreground">
+          <div>
+            <span className="text-muted-foreground">Total faturado:</span>
+            <p className="text-sm font-semibold text-foreground mt-0.5">
               {formatCurrencyBRL(totalGasto)}
             </p>
           </div>
@@ -114,32 +135,32 @@ export function CustomerHistoryModal({
         {/* Lista de Pedidos */}
         <div className="flex-1 overflow-y-auto">
           {orders.length === 0 ? (
-            <div className="py-12 text-center text-sm text-muted-foreground">
-              Nenhum pedido vinculado a este cliente ainda.
-            </div>
+            <p className="py-6 text-center text-xs text-muted-foreground">
+              Nenhum pedido encontrado para este cliente.
+            </p>
           ) : (
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableTh>Data de entrega</TableTh>
-                  <TableTh>O que é o pedido</TableTh>
+                  <TableTh>Pedido</TableTh>
+                  <TableTh>Prazo</TableTh>
                   <TableTh>Status</TableTh>
-                  <TableTh className="text-right">Valor (R$)</TableTh>
+                  <TableTh className="text-right">Valor</TableTh>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {orders.map((order) => (
                   <TableRow key={order.id}>
-                    <TableTd className="whitespace-nowrap text-sm">
+                    <TableTd className="font-medium text-foreground">{order.description}</TableTd>
+                    <TableTd className="text-xs text-muted-foreground">
                       {formatDateBR(order.due_date)}
                     </TableTd>
-                    <TableTd className="text-sm font-medium">
-                      {order.description}
+                    <TableTd>
+                      <Badge tone={statusToneMap[order.status]}>
+                        {statusLabels[order.status]}
+                      </Badge>
                     </TableTd>
-                    <TableTd className="whitespace-nowrap text-sm">
-                      <Badge tone={statusToneMap[order.status]}>{statusLabels[order.status]}</Badge>
-                    </TableTd>
-                    <TableTd className="whitespace-nowrap text-right text-sm font-semibold">
+                    <TableTd className="text-right font-medium text-foreground">
                       {order.sale_price != null
                         ? formatCurrencyBRL(Number(order.sale_price))
                         : "—"}
@@ -152,17 +173,18 @@ export function CustomerHistoryModal({
         </div>
 
         {/* Rodapé com botão Fechar */}
-        <div className="mt-4 flex justify-end border-t border-border pt-3">
+        <div className="mt-4 flex justify-end border-t border-border/80 pt-3">
           <Button
             type="button"
             variant="secondary"
             onClick={onClose}
-            className="h-8 px-4 text-xs font-medium"
+            className="h-8 px-4 text-xs font-medium cursor-pointer"
           >
             Fechar
           </Button>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body,
   );
 }

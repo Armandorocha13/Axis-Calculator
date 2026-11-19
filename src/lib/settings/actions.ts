@@ -26,8 +26,11 @@ export async function saveAtelierSettingsAction(
   const business_name = formData.get("business_name")
     ? String(formData.get("business_name")).trim()
     : undefined;
+  const rawTemplate = formData.get("whatsapp_template");
+  const whatsapp_template =
+    rawTemplate !== null ? String(rawTemplate).trim() : undefined;
 
-  const updateData: Partial<import("@/lib/types/database.types").Profile> = {
+  const updateData: Record<string, unknown> = {
     pickup_address: pickup_address || null,
     pickup_hours: pickup_hours || null,
     pix_key: pix_key || null,
@@ -36,11 +39,27 @@ export async function saveAtelierSettingsAction(
   if (business_name !== undefined) {
     updateData.business_name = business_name || null;
   }
+  if (whatsapp_template !== undefined) {
+    updateData.whatsapp_template = whatsapp_template || null;
+  }
 
-  const { error } = await supabase
+  let { error } = await supabase
     .from("profiles")
     .update(updateData)
     .eq("id", user.id);
+
+  // Fallback caso a coluna whatsapp_template ainda não tenha sido migrada no banco
+  if (error && "whatsapp_template" in updateData) {
+    const fallbackData = { ...updateData };
+    delete fallbackData.whatsapp_template;
+    const retry = await supabase
+      .from("profiles")
+      .update(fallbackData)
+      .eq("id", user.id);
+    if (!retry.error) {
+      error = null;
+    }
+  }
 
   if (error) {
     return { error: "Não foi possível salvar as configurações do ateliê." };

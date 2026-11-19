@@ -26,6 +26,7 @@ export type Profile = {
   pickup_address: string | null;
   pickup_hours: string | null;
   pix_key: string | null;
+  whatsapp_template?: string | null;
   role: UserRole;
   created_at: string;
   updated_at: string;

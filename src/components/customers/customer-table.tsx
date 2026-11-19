@@ -12,10 +12,12 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
+import { WhatsAppPreviewModal } from "@/components/ui/whatsapp-preview-modal";
 import { CustomerHistoryModal } from "@/components/customers/customer-history-modal";
 import { deleteCustomerAction } from "@/app/(app)/clientes/actions";
 import {
   formatReadyForPickupMessage,
+  renderWhatsAppMessage,
   getWhatsAppUrl,
 } from "@/lib/whatsapp";
 import type { Customer, Order, Profile } from "@/lib/types/database.types";
@@ -30,6 +32,54 @@ export function CustomerTable({
   profile?: Profile | null;
 }) {
   const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null);
+  const [waPreview, setWaPreview] = useState<{
+    isOpen: boolean;
+    customerName: string;
+    phone: string;
+    initialMessage: string;
+    title?: string;
+  } | null>(null);
+
+  function handleOpenWhatsApp(customer: Customer, readyOrder?: Order) {
+    if (!customer.phone) return;
+    const localTemplate =
+      typeof window !== "undefined"
+        ? localStorage.getItem("arte_em_conta_wa_template")
+        : null;
+    const activeTemplate = profile?.whatsapp_template?.trim()
+      ? profile.whatsapp_template
+      : localTemplate?.trim()
+      ? localTemplate
+      : undefined;
+
+    let message = "";
+    if (readyOrder) {
+      const remaining = Math.max(
+        0,
+        (Number(readyOrder.sale_price) || 0) -
+          (Number(readyOrder.amount_paid) || 0),
+      );
+      message = renderWhatsAppMessage(activeTemplate, {
+        customerName: customer.name,
+        orderDescription: readyOrder.description,
+        pickupAddress: profile?.pickup_address,
+        pickupHours: profile?.pickup_hours,
+        pixKey: profile?.pix_key,
+        remainingAmount: remaining,
+        businessName: profile?.business_name,
+      });
+    } else {
+      message = `Olá, ${customer.name}! Tudo bem?`;
+    }
+
+    setWaPreview({
+      isOpen: true,
+      customerName: customer.name,
+      phone: customer.phone,
+      initialMessage: message,
+      title: readyOrder ? "Aviso de Retirada via WhatsApp" : "Mensagem no WhatsApp",
+    });
+  }
 
   const ordersByCustomerId = useMemo(() => {
     const map = new Map<string, Order[]>();
@@ -121,14 +171,18 @@ export function CustomerTable({
                   <TableTd className="whitespace-nowrap text-right">
                     <div className="inline-flex items-center justify-end gap-2">
                       <WhatsAppButton
-                        href={waUrl}
+                        onClick={
+                          hasPhone
+                            ? () => handleOpenWhatsApp(customer, readyOrder)
+                            : undefined
+                        }
                         disabled={!hasPhone}
                         title={
                           !hasPhone
                             ? "Cliente sem telefone cadastrado"
                             : readyOrder
-                              ? "Avisar que o pedido está pronto para retirada"
-                              : "Abrir conversa no WhatsApp"
+                              ? "Revisar mensagem e avisar retirada no WhatsApp"
+                              : "Revisar e abrir conversa no WhatsApp"
                         }
                       />
                       <Button
@@ -186,6 +240,17 @@ export function CustomerTable({
             : []
         }
       />
+
+      {waPreview && (
+        <WhatsAppPreviewModal
+          isOpen={waPreview.isOpen}
+          onClose={() => setWaPreview(null)}
+          customerName={waPreview.customerName}
+          phone={waPreview.phone}
+          initialMessage={waPreview.initialMessage}
+          title={waPreview.title}
+        />
+      )}
     </>
   );
 }

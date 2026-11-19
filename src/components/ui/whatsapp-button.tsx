@@ -1,22 +1,26 @@
-import type { AnchorHTMLAttributes } from "react";
 import { cn } from "@/lib/utils";
 
-interface WhatsAppButtonProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
-  href: string;
+interface WhatsAppButtonProps {
+  href?: string;
+  onClick?: () => void;
   disabled?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+  title?: string;
 }
 
 export function WhatsAppButton({
   href,
+  onClick,
   disabled,
   className,
   children = "WhatsApp",
-  ...props
+  title,
 }: WhatsAppButtonProps) {
   if (disabled) {
     return (
       <span
-        title="Cliente sem telefone cadastrado"
+        title={title || "Cliente sem telefone cadastrado"}
         className={cn(
           "inline-flex items-center gap-1 rounded-md border border-border bg-muted/60 px-2 py-1 text-xs font-medium text-muted-foreground opacity-50 cursor-not-allowed",
           className,
@@ -28,16 +32,32 @@ export function WhatsAppButton({
     );
   }
 
+  const baseClasses = cn(
+    "inline-flex items-center gap-1.5 rounded-xl bg-[#4E6E49] px-2.5 py-1.5 text-xs font-medium text-white transition-all hover:bg-[#3F5B3B] shadow-xs active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#4E6E49]/30",
+    className,
+  );
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={baseClasses}
+        title={title}
+      >
+        <WhatsAppIcon className="h-3.5 w-3.5 fill-current" />
+        <span>{children}</span>
+      </button>
+    );
+  }
+
   return (
     <a
-      href={href}
+      href={href ?? "#"}
       target="_blank"
       rel="noopener noreferrer"
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-xl bg-[#4E6E49] px-2.5 py-1.5 text-xs font-medium text-white transition-all hover:bg-[#3F5B3B] shadow-xs active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#4E6E49]/30",
-        className,
-      )}
-      {...props}
+      className={baseClasses}
+      title={title}
     >
       <WhatsAppIcon className="h-3.5 w-3.5 fill-current" />
       <span>{children}</span>

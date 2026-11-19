@@ -14,6 +14,7 @@ import { Badge, type BadgeTone } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DeadlineBadge } from "@/components/orders/deadline-badge";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
+import { WhatsAppPreviewModal } from "@/components/ui/whatsapp-preview-modal";
 import {
   deleteOrderAction,
   settleOrderPaymentAction,
@@ -21,6 +22,7 @@ import {
 import { formatCurrencyBRL, formatDateBR, cn } from "@/lib/utils";
 import {
   formatReadyForPickupMessage,
+  renderWhatsAppMessage,
   getWhatsAppUrl,
 } from "@/lib/whatsapp";
 import type { Customer, Order, Profile } from "@/lib/types/database.types";
@@ -55,7 +57,42 @@ export function OrderTable({
     "todos" | "em_andamento" | "prontos"
   >("todos");
   const [settlingId, setSettlingId] = useState<string | null>(null);
+  const [waPreview, setWaPreview] = useState<{
+    isOpen: boolean;
+    customerName: string;
+    phone: string;
+    initialMessage: string;
+  } | null>(null);
   const [, startTransition] = useTransition();
+
+  function handleOpenWhatsApp(order: Order, customer: Customer, remaining: number) {
+    const localTemplate =
+      typeof window !== "undefined"
+        ? localStorage.getItem("arte_em_conta_wa_template")
+        : null;
+    const activeTemplate = profile?.whatsapp_template?.trim()
+      ? profile.whatsapp_template
+      : localTemplate?.trim()
+      ? localTemplate
+      : undefined;
+
+    const message = renderWhatsAppMessage(activeTemplate, {
+      customerName: customer.name,
+      orderDescription: order.description,
+      pickupAddress: profile?.pickup_address,
+      pickupHours: profile?.pickup_hours,
+      pixKey: profile?.pix_key,
+      remainingAmount: remaining,
+      businessName: profile?.business_name,
+    });
+
+    setWaPreview({
+      isOpen: true,
+      customerName: customer.name,
+      phone: customer.phone || "",
+      initialMessage: message,
+    });
+  }
 
   function handleSettle(orderId: string) {
     setSettlingId(orderId);
@@ -272,14 +309,18 @@ export function OrderTable({
                       <div className="inline-flex items-center justify-end gap-1.5">
                         {isPronto && (
                           <WhatsAppButton
-                            href={waUrl}
+                            onClick={
+                              customer && customer.phone
+                                ? () => handleOpenWhatsApp(order, customer, remaining)
+                                : undefined
+                            }
                             disabled={!customer?.phone}
                             title={
                               !customer
                                 ? "Sem cliente vinculado"
                                 : !customer.phone
                                   ? "Cliente sem telefone cadastrado"
-                                  : "Enviar aviso de retirada no WhatsApp"
+                                  : "Revisar mensagem e enviar aviso de retirada no WhatsApp"
                             }
                           />
                         )}
@@ -330,6 +371,17 @@ export function OrderTable({
             </TableBody>
           </Table>
         </div>
+      )}
+
+      {waPreview && (
+        <WhatsAppPreviewModal
+          isOpen={waPreview.isOpen}
+          onClose={() => setWaPreview(null)}
+          customerName={waPreview.customerName}
+          phone={waPreview.phone}
+          initialMessage={waPreview.initialMessage}
+          title="Aviso de Retirada via WhatsApp"
+        />
       )}
     </div>
   );

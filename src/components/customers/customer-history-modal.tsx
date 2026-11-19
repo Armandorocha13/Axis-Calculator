@@ -49,7 +49,7 @@ export function CustomerHistoryModal({
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative flex w-full max-w-2xl flex-col max-h-[90vh] rounded-lg border border-border bg-background p-6 shadow-xl">
+      <div className="relative flex w-full max-w-2xl flex-col max-h-[90vh] rounded-lg border border-border bg-card p-6 shadow-xl">
         {/* Cabeçalho */}
         <div className="mb-4 flex items-start justify-between border-b border-border pb-3">
           <div>

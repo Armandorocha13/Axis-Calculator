@@ -6,7 +6,7 @@ export function Table({
   ...props
 }: HTMLAttributes<HTMLTableElement>) {
   return (
-    <div className="overflow-x-auto rounded-lg border border-border">
+    <div className="overflow-x-auto rounded-lg border border-border bg-card shadow-2xs">
       <table className={cn("w-full text-left text-sm", className)} {...props} />
     </div>
   );
@@ -18,7 +18,7 @@ export function TableHead({
 }: HTMLAttributes<HTMLTableSectionElement>) {
   return (
     <thead
-      className={cn("bg-foreground text-background", className)}
+      className={cn("bg-muted/70 text-foreground border-b border-border", className)}
       {...props}
     />
   );
@@ -30,7 +30,7 @@ export function TableBody({
 }: HTMLAttributes<HTMLTableSectionElement>) {
   return (
     <tbody
-      className={cn("divide-y divide-border [&>tr:nth-child(even)]:bg-muted", className)}
+      className={cn("divide-y divide-border [&>tr:nth-child(even)]:bg-muted/30", className)}
       {...props}
     />
   );
@@ -40,7 +40,7 @@ export function TableRow({
   className,
   ...props
 }: HTMLAttributes<HTMLTableRowElement>) {
-  return <tr className={cn("align-middle", className)} {...props} />;
+  return <tr className={cn("align-middle hover:bg-muted/40 transition-colors", className)} {...props} />;
 }
 
 export function TableTh({
@@ -49,7 +49,7 @@ export function TableTh({
 }: ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
-      className={cn("px-4 py-3 text-xs font-semibold uppercase tracking-wide", className)}
+      className={cn("px-4 py-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground", className)}
       {...props}
     />
   );

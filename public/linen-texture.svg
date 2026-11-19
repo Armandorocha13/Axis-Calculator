@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <defs>
+    <!-- Seamless linen weave tile -->
+    <pattern id="linen-weave" width="120" height="120" patternUnits="userSpaceOnUse">
+      <!-- Darker subtle fibers (horizontal) -->
+      <line x1="0" y1="4" x2="120" y2="4" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.04" />
+      <line x1="0" y1="8" x2="120" y2="8" stroke="#7a6952" stroke-width="1.1" stroke-opacity="0.05" />
+      <line x1="0" y1="12" x2="120" y2="12" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.03" />
+      <line x1="0" y1="16" x2="120" y2="16" stroke="#7a6952" stroke-width="0.9" stroke-opacity="0.04" />
+      <line x1="0" y1="20" x2="120" y2="20" stroke="#7a6952" stroke-width="1.2" stroke-opacity="0.06" stroke-dasharray="14,3,28,4" />
+      <line x1="0" y1="24" x2="120" y2="24" stroke="#7a6952" stroke-width="0.75" stroke-opacity="0.04" />
+      <line x1="0" y1="28" x2="120" y2="28" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+      <line x1="0" y1="32" x2="120" y2="32" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.03" />
+      <line x1="0" y1="36" x2="120" y2="36" stroke="#7a6952" stroke-width="1.15" stroke-opacity="0.05" />
+      <line x1="0" y1="40" x2="120" y2="40" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.04" />
+      <line x1="0" y1="44" x2="120" y2="44" stroke="#7a6952" stroke-width="0.9" stroke-opacity="0.04" />
+      <line x1="0" y1="48" x2="120" y2="48" stroke="#7a6952" stroke-width="1.2" stroke-opacity="0.06" stroke-dasharray="20,4,16,3" />
+      <line x1="0" y1="52" x2="120" y2="52" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.03" />
+      <line x1="0" y1="56" x2="120" y2="56" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+      <line x1="0" y1="60" x2="120" y2="60" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.04" />
+      <line x1="0" y1="64" x2="120" y2="64" stroke="#7a6952" stroke-width="1.1" stroke-opacity="0.05" />
+      <line x1="0" y1="68" x2="120" y2="68" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.03" />
+      <line x1="0" y1="72" x2="120" y2="72" stroke="#7a6952" stroke-width="1.25" stroke-opacity="0.06" stroke-dasharray="10,2,22,5" />
+      <line x1="0" y1="76" x2="120" y2="76" stroke="#7a6952" stroke-width="0.75" stroke-opacity="0.04" />
+      <line x1="0" y1="80" x2="120" y2="80" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+      <line x1="0" y1="84" x2="120" y2="84" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.03" />
+      <line x1="0" y1="88" x2="120" y2="88" stroke="#7a6952" stroke-width="1.1" stroke-opacity="0.05" />
+      <line x1="0" y1="92" x2="120" y2="92" stroke="#7a6952" stroke-width="0.85" stroke-opacity="0.04" />
+      <line x1="0" y1="96" x2="120" y2="96" stroke="#7a6952" stroke-width="1.2" stroke-opacity="0.06" stroke-dasharray="18,3,15,4" />
+      <line x1="0" y1="100" x2="120" y2="100" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.03" />
+      <line x1="0" y1="104" x2="120" y2="104" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+      <line x1="0" y1="108" x2="120" y2="108" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.04" />
+      <line x1="0" y1="112" x2="120" y2="112" stroke="#7a6952" stroke-width="1.1" stroke-opacity="0.05" />
+      <line x1="0" y1="116" x2="120" y2="116" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.03" />
+      <line x1="0" y1="120" x2="120" y2="120" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+
+      <!-- Darker subtle fibers (vertical) -->
+      <line x1="4" y1="0" x2="4" y2="120" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.04" />
+      <line x1="8" y1="0" x2="8" y2="120" stroke="#7a6952" stroke-width="1.1" stroke-opacity="0.05" />
+      <line x1="12" y1="0" x2="12" y2="120" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.03" />
+      <line x1="16" y1="0" x2="16" y2="120" stroke="#7a6952" stroke-width="0.9" stroke-opacity="0.04" />
+      <line x1="20" y1="0" x2="20" y2="120" stroke="#7a6952" stroke-width="1.2" stroke-opacity="0.06" stroke-dasharray="16,4,24,3" />
+      <line x1="24" y1="0" x2="24" y2="120" stroke="#7a6952" stroke-width="0.75" stroke-opacity="0.04" />
+      <line x1="28" y1="0" x2="28" y2="120" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+      <line x1="32" y1="0" x2="32" y2="120" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.03" />
+      <line x1="36" y1="0" x2="36" y2="120" stroke="#7a6952" stroke-width="1.15" stroke-opacity="0.05" />
+      <line x1="40" y1="0" x2="40" y2="120" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.04" />
+      <line x1="44" y1="0" x2="44" y2="120" stroke="#7a6952" stroke-width="0.9" stroke-opacity="0.04" />
+      <line x1="48" y1="0" x2="48" y2="120" stroke="#7a6952" stroke-width="1.2" stroke-opacity="0.06" stroke-dasharray="22,3,14,5" />
+      <line x1="52" y1="0" x2="52" y2="120" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.03" />
+      <line x1="56" y1="0" x2="56" y2="120" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+      <line x1="60" y1="0" x2="60" y2="120" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.04" />
+      <line x1="64" y1="0" x2="64" y2="120" stroke="#7a6952" stroke-width="1.1" stroke-opacity="0.05" />
+      <line x1="68" y1="0" x2="68" y2="120" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.03" />
+      <line x1="72" y1="0" x2="72" y2="120" stroke="#7a6952" stroke-width="1.25" stroke-opacity="0.06" stroke-dasharray="12,3,19,4" />
+      <line x1="76" y1="0" x2="76" y2="120" stroke="#7a6952" stroke-width="0.75" stroke-opacity="0.04" />
+      <line x1="80" y1="0" x2="80" y2="120" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+      <line x1="84" y1="0" x2="84" y2="120" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.03" />
+      <line x1="88" y1="0" x2="88" y2="120" stroke="#7a6952" stroke-width="1.1" stroke-opacity="0.05" />
+      <line x1="92" y1="0" x2="92" y2="120" stroke="#7a6952" stroke-width="0.85" stroke-opacity="0.04" />
+      <line x1="96" y1="0" x2="96" y2="120" stroke="#7a6952" stroke-width="1.2" stroke-opacity="0.06" stroke-dasharray="25,4,12,3" />
+      <line x1="100" y1="0" x2="100" y2="120" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.03" />
+      <line x1="104" y1="0" x2="104" y2="120" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+      <line x1="108" y1="0" x2="108" y2="120" stroke="#7a6952" stroke-width="0.8" stroke-opacity="0.04" />
+      <line x1="112" y1="0" x2="112" y2="120" stroke="#7a6952" stroke-width="1.1" stroke-opacity="0.05" />
+      <line x1="116" y1="0" x2="116" y2="120" stroke="#7a6952" stroke-width="0.7" stroke-opacity="0.03" />
+      <line x1="120" y1="0" x2="120" y2="120" stroke="#7a6952" stroke-width="1.0" stroke-opacity="0.05" />
+
+      <!-- Light fiber highlights (interleaved warp and weft) -->
+      <line x1="0" y1="2" x2="120" y2="2" stroke="#ffffff" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="4,2,7,3" />
+      <line x1="0" y1="10" x2="120" y2="10" stroke="#ffffff" stroke-width="0.85" stroke-opacity="0.30" stroke-dasharray="5,4,3,2" />
+      <line x1="0" y1="18" x2="120" y2="18" stroke="#ffffff" stroke-width="0.70" stroke-opacity="0.25" stroke-dasharray="3,3,6,2" />
+      <line x1="0" y1="26" x2="120" y2="26" stroke="#ffffff" stroke-width="0.90" stroke-opacity="0.35" stroke-dasharray="6,2,4,4" />
+      <line x1="0" y1="34" x2="120" y2="34" stroke="#ffffff" stroke-width="0.75" stroke-opacity="0.30" stroke-dasharray="4,5,5,2" />
+      <line x1="0" y1="42" x2="120" y2="42" stroke="#ffffff" stroke-width="0.85" stroke-opacity="0.28" stroke-dasharray="3,2,8,3" />
+      <line x1="0" y1="50" x2="120" y2="50" stroke="#ffffff" stroke-width="0.70" stroke-opacity="0.35" stroke-dasharray="7,3,3,3" />
+      <line x1="0" y1="58" x2="120" y2="58" stroke="#ffffff" stroke-width="0.95" stroke-opacity="0.30" stroke-dasharray="5,2,4,5" />
+      <line x1="0" y1="66" x2="120" y2="66" stroke="#ffffff" stroke-width="0.75" stroke-opacity="0.25" stroke-dasharray="4,4,6,2" />
+      <line x1="0" y1="74" x2="120" y2="74" stroke="#ffffff" stroke-width="0.85" stroke-opacity="0.35" stroke-dasharray="6,3,5,2" />
+      <line x1="0" y1="82" x2="120" y2="82" stroke="#ffffff" stroke-width="0.70" stroke-opacity="0.28" stroke-dasharray="3,5,4,4" />
+      <line x1="0" y1="90" x2="120" y2="90" stroke="#ffffff" stroke-width="0.90" stroke-opacity="0.32" stroke-dasharray="5,2,7,3" />
+      <line x1="0" y1="98" x2="120" y2="98" stroke="#ffffff" stroke-width="0.75" stroke-opacity="0.25" stroke-dasharray="4,3,3,6" />
+      <line x1="0" y1="106" x2="120" y2="106" stroke="#ffffff" stroke-width="0.85" stroke-opacity="0.35" stroke-dasharray="7,4,4,1" />
+      <line x1="0" y1="114" x2="120" y2="114" stroke="#ffffff" stroke-width="0.70" stroke-opacity="0.30" stroke-dasharray="3,2,5,4" />
+
+      <line x1="2" y1="0" x2="2" y2="120" stroke="#ffffff" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="3,3,6,2" />
+      <line x1="10" y1="0" x2="10" y2="120" stroke="#ffffff" stroke-width="0.85" stroke-opacity="0.28" stroke-dasharray="5,2,4,4" />
+      <line x1="18" y1="0" x2="18" y2="120" stroke="#ffffff" stroke-width="0.70" stroke-opacity="0.32" stroke-dasharray="4,4,5,3" />
+      <line x1="26" y1="0" x2="26" y2="120" stroke="#ffffff" stroke-width="0.90" stroke-opacity="0.25" stroke-dasharray="6,3,3,4" />
+      <line x1="34" y1="0" x2="34" y2="120" stroke="#ffffff" stroke-width="0.75" stroke-opacity="0.35" stroke-dasharray="4,2,7,3" />
+      <line x1="42" y1="0" x2="42" y2="120" stroke="#ffffff" stroke-width="0.85" stroke-opacity="0.30" stroke-dasharray="5,4,4,2" />
+      <line x1="50" y1="0" x2="50" y2="120" stroke="#ffffff" stroke-width="0.70" stroke-opacity="0.28" stroke-dasharray="3,5,6,2" />
+      <line x1="58" y1="0" x2="58" y2="120" stroke="#ffffff" stroke-width="0.95" stroke-opacity="0.35" stroke-dasharray="7,2,3,4" />
+      <line x1="66" y1="0" x2="66" y2="120" stroke="#ffffff" stroke-width="0.75" stroke-opacity="0.25" stroke-dasharray="4,3,5,4" />
+      <line x1="74" y1="0" x2="74" y2="120" stroke="#ffffff" stroke-width="0.85" stroke-opacity="0.32" stroke-dasharray="6,4,4,2" />
+      <line x1="82" y1="0" x2="82" y2="120" stroke="#ffffff" stroke-width="0.70" stroke-opacity="0.30" stroke-dasharray="3,2,6,3" />
+      <line x1="90" y1="0" x2="90" y2="120" stroke="#ffffff" stroke-width="0.90" stroke-opacity="0.35" stroke-dasharray="5,3,5,3" />
+      <line x1="98" y1="0" x2="98" y2="120" stroke="#ffffff" stroke-width="0.75" stroke-opacity="0.28" stroke-dasharray="4,5,3,4" />
+      <line x1="106" y1="0" x2="106" y2="120" stroke="#ffffff" stroke-width="0.85" stroke-opacity="0.32" stroke-dasharray="6,2,7,2" />
+      <line x1="114" y1="0" x2="114" y2="120" stroke="#ffffff" stroke-width="0.70" stroke-opacity="0.25" stroke-dasharray="3,4,4,5" />
+
+      <!-- Natural linen slubs (yarn irregularities) -->
+      <line x1="14" y1="21" x2="32" y2="21" stroke="#68553f" stroke-width="1.6" stroke-opacity="0.08" stroke-linecap="round" />
+      <line x1="55" y1="41" x2="72" y2="41" stroke="#68553f" stroke-width="1.7" stroke-opacity="0.09" stroke-linecap="round" />
+      <line x1="84" y1="15" x2="102" y2="15" stroke="#68553f" stroke-width="1.5" stroke-opacity="0.07" stroke-linecap="round" />
+      <line x1="28" y1="85" x2="48" y2="85" stroke="#68553f" stroke-width="1.6" stroke-opacity="0.08" stroke-linecap="round" />
+      <line x1="75" y1="99" x2="96" y2="99" stroke="#68553f" stroke-width="1.8" stroke-opacity="0.09" stroke-linecap="round" />
+
+      <line x1="37" y1="10" x2="37" y2="28" stroke="#68553f" stroke-width="1.5" stroke-opacity="0.08" stroke-linecap="round" />
+      <line x1="97" y1="52" x2="97" y2="74" stroke="#68553f" stroke-width="1.6" stroke-opacity="0.08" stroke-linecap="round" />
+      <line x1="19" y1="62" x2="19" y2="80" stroke="#68553f" stroke-width="1.7" stroke-opacity="0.09" stroke-linecap="round" />
+      <line x1="61" y1="70" x2="61" y2="92" stroke="#68553f" stroke-width="1.5" stroke-opacity="0.07" stroke-linecap="round" />
+    </pattern>
+  </defs>
+
+  <rect width="100%" height="100%" fill="url(#linen-weave)" />
+</svg>

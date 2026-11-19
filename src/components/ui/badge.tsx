@@ -4,7 +4,7 @@ import type { HTMLAttributes } from "react";
 type Tone = "neutral" | "solid" | "accent";
 
 const toneClasses: Record<Tone, string> = {
-  neutral: "border border-border text-muted-foreground",
+  neutral: "border border-border bg-muted/60 text-foreground/80",
   solid: "bg-foreground text-background border border-foreground",
   accent: "bg-accent text-accent-foreground border border-accent",
 };

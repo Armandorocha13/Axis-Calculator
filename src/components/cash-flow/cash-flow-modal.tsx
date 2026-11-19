@@ -68,7 +68,7 @@ export function CashFlowModal({
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative w-full max-w-md rounded-lg border border-border bg-background p-6 shadow-xl">
+      <div className="relative w-full max-w-md rounded-lg border border-border bg-card p-6 shadow-xl">
         <div className="mb-5 flex items-center justify-between border-b border-border pb-3">
           <h2 className="text-base font-semibold">
             {editingEntry

@@ -22,15 +22,15 @@ export function Topbar({
 
   return (
     <>
-      <header className="relative border-b border-border bg-background">
-        <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-4">
+      <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur-md">
+        <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-3.5">
           <div className="flex min-w-0 items-center gap-2">
             <button
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
               aria-expanded={menuOpen}
-              className="shrink-0 rounded-md p-2 hover:bg-muted md:hidden"
+              className="shrink-0 rounded-md p-2 hover:bg-muted md:hidden text-foreground"
             >
               {menuOpen ? (
                 <svg
@@ -89,9 +89,9 @@ export function Topbar({
               type="button"
               aria-label="Fechar menu"
               onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-black/20 md:hidden"
+              className="fixed inset-0 z-40 bg-black/25 backdrop-blur-2xs md:hidden"
             />
-            <div className="absolute left-0 right-0 top-full z-50 border-b border-border bg-background p-4 shadow-md md:hidden">
+            <div className="absolute left-0 right-0 top-full z-50 border-b border-border bg-card p-4 shadow-lg md:hidden">
               <SidebarNav isAdmin={isAdmin} onNavigate={() => setMenuOpen(false)} />
             </div>
           </>

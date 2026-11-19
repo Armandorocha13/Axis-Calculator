@@ -29,7 +29,7 @@ export function SidebarNav({
 
   return (
     <div className="flex flex-col justify-between h-full gap-6">
-      <nav className="flex flex-col gap-1">
+      <nav className="flex flex-col gap-1.5">
         {items.map((item) => {
           const active =
             pathname === item.href || pathname.startsWith(`${item.href}/`);
@@ -41,8 +41,8 @@ export function SidebarNav({
               className={cn(
                 "rounded-md px-3 py-2 text-sm font-medium whitespace-nowrap transition-colors",
                 active
-                  ? "bg-foreground text-background"
-                  : "text-foreground hover:bg-muted",
+                  ? "bg-foreground text-background shadow-xs font-semibold"
+                  : "text-foreground/80 hover:bg-muted/80 hover:text-foreground",
               )}
             >
               {item.label}
@@ -58,7 +58,7 @@ export function SidebarNav({
           target="_blank"
           rel="noopener noreferrer"
           onClick={onNavigate}
-          className="flex items-center gap-2 rounded-md px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          className="flex items-center gap-2 rounded-md px-3 py-2 text-xs font-medium text-muted-foreground hover:bg-muted/80 hover:text-foreground transition-colors"
         >
           <svg
             viewBox="0 0 24 24"

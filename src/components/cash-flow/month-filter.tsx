@@ -53,23 +53,23 @@ export function MonthFilter({ currentMonthStr }: { currentMonthStr: string }) {
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      <div className="flex items-center gap-1 rounded-md border border-border bg-background p-1">
+      <div className="flex items-center gap-1 rounded-xl border border-border bg-card p-1 shadow-2xs">
         <Button
           type="button"
           variant="ghost"
-          className="h-8 w-8 p-0"
+          className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
           onClick={() => navigateTo(year, month - 1)}
           aria-label="Mês anterior"
         >
           &larr;
         </Button>
-        <span className="min-w-36 text-center text-sm font-semibold">
+        <span className="min-w-36 text-center text-sm font-semibold text-foreground">
           {MONTH_NAMES[month - 1]} {year}
         </span>
         <Button
           type="button"
           variant="ghost"
-          className="h-8 w-8 p-0"
+          className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground"
           onClick={() => navigateTo(year, month + 1)}
           aria-label="Próximo mês"
         >
@@ -81,7 +81,7 @@ export function MonthFilter({ currentMonthStr }: { currentMonthStr: string }) {
         type="month"
         value={currentMonthStr}
         onChange={handleMonthChange}
-        className="h-9 rounded-md border border-border bg-background px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-foreground"
+        className="h-10 rounded-xl border border-border bg-card px-3.5 py-1 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-all"
       />
     </div>
   );

@@ -10,7 +10,7 @@ import {
   TableTd,
   TableTh,
 } from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+import { Badge, type BadgeTone } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { DeadlineBadge } from "@/components/orders/deadline-badge";
 import { WhatsAppButton } from "@/components/ui/whatsapp-button";
@@ -31,6 +31,14 @@ const statusLabels: Record<Order["status"], string> = {
   pronto: "Pronto para envio/retirada",
   entregue: "Entregue",
   cancelado: "Cancelado",
+};
+
+const statusToneMap: Record<Order["status"], BadgeTone> = {
+  pendente: "neutral",
+  em_producao: "lavanda",
+  pronto: "salvia",
+  entregue: "salvia",
+  cancelado: "rosa",
 };
 
 export function OrderTable({
@@ -71,21 +79,17 @@ export function OrderTable({
     );
   }
 
+  // Contadores para as abas de filtro
   const countTodos = orders.length;
   const countEmAndamento = orders.filter(
-    (o) =>
-      o.status !== "pronto" && o.status !== "entregue" && o.status !== "cancelado",
+    (o) => o.status === "pendente" || o.status === "em_producao",
   ).length;
   const countProntos = orders.filter((o) => o.status === "pronto").length;
 
   const filteredOrders = orders.filter((order) => {
-    // Filtro por status rápido
+    // Filtro por abas de status
     if (filterStatus === "em_andamento") {
-      if (
-        order.status === "pronto" ||
-        order.status === "entregue" ||
-        order.status === "cancelado"
-      ) {
+      if (order.status !== "pendente" && order.status !== "em_producao") {
         return false;
       }
     } else if (filterStatus === "prontos") {
@@ -94,39 +98,36 @@ export function OrderTable({
       }
     }
 
-    // Busca por texto (cliente ou pedido)
-    if (search.trim()) {
-      const q = search.toLowerCase().trim();
-      const customer = order.customer_id
-        ? customersById.get(order.customer_id)
-        : null;
-      const descMatch = order.description.toLowerCase().includes(q);
-      const customerMatch = customer
-        ? customer.name.toLowerCase().includes(q)
-        : false;
-      if (!descMatch && !customerMatch) return false;
-    }
+    // Filtro por texto de busca
+    if (!search.trim()) return true;
+    const term = search.toLowerCase();
 
-    return true;
+    const orderDescMatch = order.description?.toLowerCase().includes(term);
+    const customer = order.customer_id
+      ? customersById.get(order.customer_id)
+      : null;
+    const customerNameMatch = customer?.name?.toLowerCase().includes(term);
+
+    return Boolean(orderDescMatch || customerNameMatch);
   });
 
   return (
     <div className="flex flex-col gap-4">
-      {/* Busca e Filtro Rápido */}
-      <div className="flex flex-col gap-3 pb-3 border-b border-border sm:flex-row sm:items-center sm:justify-between">
+      {/* Barra de Filtros e Busca */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative flex-1 max-w-sm">
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Buscar por cliente ou pedido..."
-            className="w-full h-9 rounded-md border border-border bg-background px-3 py-1 text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-foreground"
+            className="w-full h-10 rounded-xl border border-border bg-card px-3.5 py-1 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary"
           />
           {search && (
             <button
               type="button"
               onClick={() => setSearch("")}
-              className="absolute right-2.5 top-2 text-xs text-muted-foreground hover:text-foreground"
+              className="absolute right-3 top-2.5 text-xs text-muted-foreground hover:text-foreground"
               aria-label="Limpar busca"
             >
               ✕
@@ -134,15 +135,15 @@ export function OrderTable({
           )}
         </div>
 
-        <div className="flex items-center gap-1 overflow-x-auto">
+        <div className="flex items-center gap-1.5 overflow-x-auto p-1 bg-muted/40 rounded-xl border border-border/60">
           <button
             type="button"
             onClick={() => setFilterStatus("todos")}
             className={cn(
-              "rounded-md px-3 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-colors",
+              "rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-all",
               filterStatus === "todos"
-                ? "bg-foreground text-background"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                ? "bg-card text-foreground shadow-xs font-semibold"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
             Todos ({countTodos})
@@ -152,10 +153,10 @@ export function OrderTable({
             type="button"
             onClick={() => setFilterStatus("em_andamento")}
             className={cn(
-              "rounded-md px-3 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-colors",
+              "rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-all",
               filterStatus === "em_andamento"
-                ? "bg-foreground text-background"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                ? "bg-card text-foreground shadow-xs font-semibold"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
             Em andamento ({countEmAndamento})
@@ -165,10 +166,10 @@ export function OrderTable({
             type="button"
             onClick={() => setFilterStatus("prontos")}
             className={cn(
-              "rounded-md px-3 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-colors",
+              "rounded-lg px-3 py-1.5 text-xs sm:text-sm font-medium whitespace-nowrap transition-all",
               filterStatus === "prontos"
-                ? "bg-foreground text-background"
-                : "text-muted-foreground hover:bg-muted hover:text-foreground",
+                ? "bg-card text-foreground shadow-xs font-semibold"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
             Prontos ({countProntos})
@@ -177,7 +178,7 @@ export function OrderTable({
       </div>
 
       {filteredOrders.length === 0 ? (
-        <div className="py-8 text-center text-sm text-muted-foreground">
+        <div className="py-8 text-center text-sm text-muted-foreground bg-card rounded-2xl border border-border p-6">
           <p>Nenhum pedido encontrado para a busca ou filtro selecionado.</p>
           {(search || filterStatus !== "todos") && (
             <button
@@ -186,7 +187,7 @@ export function OrderTable({
                 setSearch("");
                 setFilterStatus("todos");
               }}
-              className="mt-2 text-xs underline hover:text-foreground"
+              className="mt-2 text-xs text-primary underline hover:text-[#8C77B9]"
             >
               Limpar filtros
             </button>
@@ -235,11 +236,11 @@ export function OrderTable({
 
                 return (
                   <TableRow key={order.id}>
-                    <TableTd className="font-medium">{order.description}</TableTd>
-                    <TableTd>{customer?.name ?? "—"}</TableTd>
+                    <TableTd className="font-medium text-foreground">{order.description}</TableTd>
+                    <TableTd className="text-foreground/90">{customer?.name ?? "—"}</TableTd>
                     <TableTd>
                       <div className="flex flex-col gap-1">
-                        <span>{formatDateBR(order.due_date)}</span>
+                        <span className="text-xs text-foreground/80">{formatDateBR(order.due_date)}</span>
                         <DeadlineBadge
                           dueDate={order.due_date}
                           status={order.status}
@@ -247,11 +248,13 @@ export function OrderTable({
                       </div>
                     </TableTd>
                     <TableTd>
-                      <Badge>{statusLabels[order.status]}</Badge>
+                      <Badge tone={statusToneMap[order.status]}>
+                        {statusLabels[order.status]}
+                      </Badge>
                     </TableTd>
                     <TableTd>
                       <div className="flex flex-col">
-                        <span className="font-semibold">
+                        <span className="font-semibold text-foreground">
                           {order.sale_price != null
                             ? formatCurrencyBRL(Number(order.sale_price))
                             : "—"}
@@ -266,7 +269,7 @@ export function OrderTable({
                       </div>
                     </TableTd>
                     <TableTd className="whitespace-nowrap text-right">
-                      <div className="inline-flex items-center justify-end gap-2">
+                      <div className="inline-flex items-center justify-end gap-1.5">
                         {isPronto && (
                           <WhatsAppButton
                             href={waUrl}
@@ -286,7 +289,7 @@ export function OrderTable({
                             variant="secondary"
                             disabled={settlingId === order.id}
                             onClick={() => handleSettle(order.id)}
-                            className="h-8 px-2.5 text-xs"
+                            className="h-8 px-2.5 text-xs text-salvia-foreground border-salvia/40 bg-salvia-bg hover:bg-salvia/25"
                             title="Quitar pedido e lançar no Fluxo de Caixa"
                           >
                             {settlingId === order.id ? "Quitando..." : "Pago"}

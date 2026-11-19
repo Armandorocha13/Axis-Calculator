@@ -31,7 +31,7 @@ export function CashFlowHeader({ currentMonthStr }: { currentMonthStr: string })
           <Button
             type="button"
             onClick={() => setModalState({ isOpen: true, type: "entrada" })}
-            className="border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700"
+            className="bg-[#4E6E49] text-white hover:bg-[#3F5B3B] border-transparent shadow-xs"
           >
             + Nova Entrada
           </Button>
@@ -40,7 +40,7 @@ export function CashFlowHeader({ currentMonthStr }: { currentMonthStr: string })
             type="button"
             variant="secondary"
             onClick={() => setModalState({ isOpen: true, type: "saida" })}
-            className="border-red-600/80 text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40"
+            className="border-rosa/60 text-rosa-foreground hover:bg-rosa-bg shadow-xs"
           >
             + Nova Saída
           </Button>

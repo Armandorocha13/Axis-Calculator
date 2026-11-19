@@ -101,13 +101,13 @@ export function CustomerTable({
                           {customer.name}
                         </span>
                         {readyOrder && (
-                          <span className="inline-flex items-center rounded bg-emerald-50 px-1.5 py-0.5 text-[10px] font-medium text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300">
-                            Pedido pronto para retirada
+                          <span className="inline-flex items-center rounded-full bg-salvia-bg px-2 py-0.5 text-[10px] font-semibold text-salvia-foreground border border-salvia/30">
+                            Pedido pronto
                           </span>
                         )}
                       </div>
                       <div>
-                        <span className="inline-flex items-center rounded border border-border bg-muted/40 px-1.5 py-0.5 text-[11px] font-normal text-muted-foreground">
+                        <span className="inline-flex items-center rounded-full border border-border bg-muted/60 px-2 py-0.5 text-[11px] font-normal text-muted-foreground">
                           {orderCount === 1
                             ? "1 pedido"
                             : `${orderCount} pedidos`}

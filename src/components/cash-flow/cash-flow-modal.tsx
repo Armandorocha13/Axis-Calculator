@@ -104,10 +104,10 @@ export function CashFlowModal({
               <button
                 type="button"
                 onClick={() => handleTypeChange("entrada")}
-                className={`rounded-md border py-2 text-sm font-medium transition-colors ${
+                className={`rounded-xl border py-2.5 text-sm font-semibold transition-all ${
                   type === "entrada"
-                    ? "border-emerald-600 bg-emerald-50 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300"
-                    : "border-border bg-background text-foreground hover:bg-muted"
+                    ? "border-salvia bg-salvia-bg text-salvia-foreground shadow-xs ring-1 ring-salvia"
+                    : "border-border bg-card text-foreground hover:bg-muted/50"
                 }`}
               >
                 + Entrada
@@ -115,10 +115,10 @@ export function CashFlowModal({
               <button
                 type="button"
                 onClick={() => handleTypeChange("saida")}
-                className={`rounded-md border py-2 text-sm font-medium transition-colors ${
+                className={`rounded-xl border py-2.5 text-sm font-semibold transition-all ${
                   type === "saida"
-                    ? "border-red-600 bg-red-50 text-red-800 dark:bg-red-950/50 dark:text-red-300"
-                    : "border-border bg-background text-foreground hover:bg-muted"
+                    ? "border-rosa bg-rosa-bg text-rosa-foreground shadow-xs ring-1 ring-rosa"
+                    : "border-border bg-card text-foreground hover:bg-muted/50"
                 }`}
               >
                 - Saída

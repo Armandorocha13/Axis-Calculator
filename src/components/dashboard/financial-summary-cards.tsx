@@ -17,47 +17,57 @@ export function FinancialSummaryCards({
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {/* ENTRADAS (MÊS) */}
-      <Card>
-        <CardContent className="py-4">
-          <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
-            Entradas (Mês)
-          </p>
-          <p className="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-500">
+      <Card className="hover:border-salvia/40">
+        <CardContent className="p-5">
+          <div className="flex items-center justify-between">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+              Entradas (Mês)
+            </p>
+            <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-salvia-bg text-salvia-foreground border border-salvia/30">
+              Recebido
+            </span>
+          </div>
+          <p className="mt-2 text-2xl font-bold tracking-tight text-salvia-foreground">
             {formatCurrencyBRL(entradasMes)}
           </p>
         </CardContent>
       </Card>
 
       {/* SAÍDAS (MÊS) */}
-      <Card>
-        <CardContent className="py-4">
-          <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
-            Saídas (Mês)
-          </p>
-          <p className="mt-1 text-2xl font-semibold text-red-600 dark:text-red-500">
+      <Card className="hover:border-rosa/40">
+        <CardContent className="p-5">
+          <div className="flex items-center justify-between">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+              Saídas (Mês)
+            </p>
+            <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-rosa-bg text-rosa-foreground border border-rosa/30">
+              Custos
+            </span>
+          </div>
+          <p className="mt-2 text-2xl font-bold tracking-tight text-rosa-foreground">
             {formatCurrencyBRL(saidasMes)}
           </p>
         </CardContent>
       </Card>
 
       {/* SALDO LIVRE */}
-      <Card className="border-foreground/30 bg-muted/40 ring-1 ring-foreground/20">
-        <CardContent className="py-4">
+      <Card className="border-primary/30 ring-1 ring-primary/20 shadow-xs">
+        <CardContent className="p-5">
           <div className="flex items-center justify-between">
-            <p className="text-xs uppercase tracking-wide font-semibold text-foreground">
+            <p className="text-xs uppercase tracking-wider font-semibold text-foreground">
               Saldo Livre
             </p>
             <span
-              className={`text-[10px] font-medium uppercase px-1.5 py-0.5 rounded ${
+              className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full border ${
                 saldoLivre >= 0
-                  ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
-                  : "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300"
+                  ? "bg-salvia-bg text-salvia-foreground border-salvia/40"
+                  : "bg-rosa-bg text-rosa-foreground border-rosa/40"
               }`}
             >
               {saldoLivre >= 0 ? "Positivo" : "Negativo"}
             </span>
           </div>
-          <p className="mt-1 text-2xl font-bold tracking-tight text-foreground">
+          <p className="mt-2 text-2xl font-bold tracking-tight text-foreground">
             {formatCurrencyBRL(saldoLivre)}
           </p>
         </CardContent>
@@ -65,11 +75,16 @@ export function FinancialSummaryCards({
 
       {/* PREVISTO A RECEBER */}
       <Card>
-        <CardContent className="py-4">
-          <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
-            Previsto a receber
-          </p>
-          <p className="mt-1 text-2xl font-semibold text-foreground">
+        <CardContent className="p-5">
+          <div className="flex items-center justify-between">
+            <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+              Previsto a receber
+            </p>
+            <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-muted/60 text-muted-foreground border border-border">
+              A receber
+            </span>
+          </div>
+          <p className="mt-2 text-2xl font-bold tracking-tight text-foreground">
             {formatCurrencyBRL(previstoAReceber)}
           </p>
         </CardContent>

@@ -51,7 +51,7 @@ export function AtelierSettingsModal({
         onClick={onClose}
         aria-hidden="true"
       />
-      <div className="relative w-full max-w-lg rounded-lg border border-border bg-card p-6 shadow-xl">
+      <div className="relative w-full max-w-lg rounded-2xl border border-border bg-card p-6 sm:p-7 shadow-2xl">
         <div className="mb-4 flex items-center justify-between border-b border-border pb-3">
           <div>
             <h2 className="text-base font-semibold">Configurações do Ateliê</h2>
@@ -138,7 +138,7 @@ export function AtelierSettingsModal({
           )}
 
           {success && (
-            <p className="text-sm text-emerald-600 font-medium" role="status">
+            <p className="text-sm text-salvia-foreground font-semibold" role="status">
               ✓ Configurações salvas com sucesso!
             </p>
           )}

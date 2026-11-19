@@ -59,21 +59,21 @@ export function CashFlowTable({ entries }: { entries: CashFlowEntry[] }) {
                   </TableTd>
                   <TableTd className="whitespace-nowrap">
                     <span
-                      className={`inline-flex items-center rounded-md px-2 py-0.5 text-xs font-medium ${
+                      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium border ${
                         isEntrada
-                          ? "bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300"
-                          : "bg-red-50 text-red-800 dark:bg-red-950/60 dark:text-red-300"
+                          ? "bg-salvia-bg text-salvia-foreground border-salvia/30"
+                          : "bg-rosa-bg text-rosa-foreground border-rosa/30"
                       }`}
                     >
                       {isEntrada ? "Entrada" : "Saída"}
                     </span>
                   </TableTd>
-                  <TableTd className="whitespace-nowrap font-semibold">
+                  <TableTd className="whitespace-nowrap font-bold">
                     <span
                       className={
                         isEntrada
-                          ? "text-emerald-600 dark:text-emerald-500"
-                          : "text-red-600 dark:text-red-500"
+                          ? "text-salvia-foreground"
+                          : "text-rosa-foreground"
                       }
                     >
                       {isEntrada ? "+" : "-"} {formatCurrencyBRL(Number(item.amount))}

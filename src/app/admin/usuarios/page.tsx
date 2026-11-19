@@ -73,13 +73,13 @@ export default async function AdminUsersPage() {
                     <TableTd>{row.profile?.full_name || "—"}</TableTd>
                     <TableTd>{row.email}</TableTd>
                     <TableTd>
-                      <Badge tone={row.profile?.role === "admin" ? "solid" : "neutral"}>
+                      <Badge tone={row.profile?.role === "admin" ? "lavanda" : "neutral"}>
                         {row.profile?.role === "admin" ? "Admin" : "Usuário"}
                       </Badge>
                     </TableTd>
                     <TableTd>{formatDateBR(row.createdAt)}</TableTd>
                     <TableTd>
-                      <Badge tone={row.isBanned ? "accent" : "neutral"}>
+                      <Badge tone={row.isBanned ? "rosa" : "salvia"}>
                         {row.isBanned ? "Bloqueado" : "Ativo"}
                       </Badge>
                     </TableTd>

@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CashFlowHeader } from "@/components/cash-flow/cash-flow-header";
@@ -5,6 +6,10 @@ import { CashFlowTable } from "@/components/cash-flow/cash-flow-table";
 import { formatCurrencyBRL } from "@/lib/utils";
 import { format, parse, startOfMonth, endOfMonth, isValid } from "date-fns";
 import type { CashFlowEntry } from "@/lib/types/database.types";
+
+export const metadata: Metadata = {
+  title: "Fluxo de Caixa | Arte em Conta",
+};
 
 export default async function CashFlowPage({
   searchParams,
@@ -60,45 +65,55 @@ export default async function CashFlowPage({
 
       {/* Cards de Resumo do Mês */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <Card>
-          <CardContent className="py-4">
-            <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
-              Entradas do Mês
-            </p>
-            <p className="mt-1 text-2xl font-semibold text-emerald-600 dark:text-emerald-500">
+        <Card className="hover:border-salvia/40">
+          <CardContent className="p-5">
+            <div className="flex items-center justify-between">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                Entradas do Mês
+              </p>
+              <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-salvia-bg text-salvia-foreground border border-salvia/30">
+                Entradas
+              </span>
+            </div>
+            <p className="mt-2 text-2xl font-bold tracking-tight text-salvia-foreground">
               {formatCurrencyBRL(totalEntradas)}
             </p>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardContent className="py-4">
-            <p className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
-              Saídas do Mês
-            </p>
-            <p className="mt-1 text-2xl font-semibold text-red-600 dark:text-red-500">
+        <Card className="hover:border-rosa/40">
+          <CardContent className="p-5">
+            <div className="flex items-center justify-between">
+              <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                Saídas do Mês
+              </p>
+              <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-rosa-bg text-rosa-foreground border border-rosa/30">
+                Saídas
+              </span>
+            </div>
+            <p className="mt-2 text-2xl font-bold tracking-tight text-rosa-foreground">
               {formatCurrencyBRL(totalSaidas)}
             </p>
           </CardContent>
         </Card>
 
-        <Card className="border-foreground/30 bg-muted/30 ring-1 ring-foreground/20">
-          <CardContent className="py-4">
+        <Card className="border-primary/30 ring-1 ring-primary/20 shadow-xs">
+          <CardContent className="p-5">
             <div className="flex items-center justify-between">
-              <p className="text-xs uppercase tracking-wide font-semibold text-foreground">
+              <p className="text-xs uppercase tracking-wider font-semibold text-foreground">
                 Saldo do Mês
               </p>
               <span
-                className={`text-[10px] font-medium uppercase px-1.5 py-0.5 rounded ${
+                className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full border ${
                   saldoMes >= 0
-                    ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
-                    : "bg-red-100 text-red-800 dark:bg-red-950 dark:text-red-300"
+                    ? "bg-salvia-bg text-salvia-foreground border-salvia/40"
+                    : "bg-rosa-bg text-rosa-foreground border-rosa/40"
                 }`}
               >
                 {saldoMes >= 0 ? "Positivo" : "Negativo"}
               </span>
             </div>
-            <p className="mt-1 text-2xl font-bold tracking-tight text-foreground">
+            <p className="mt-2 text-2xl font-bold tracking-tight text-foreground">
               {formatCurrencyBRL(saldoMes)}
             </p>
           </CardContent>
@@ -109,7 +124,7 @@ export default async function CashFlowPage({
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
           <CardTitle>Movimentações do Mês</CardTitle>
-          <span className="text-xs text-muted-foreground">
+          <span className="text-xs text-muted-foreground font-medium">
             {entries.length}{" "}
             {entries.length === 1 ? "registro" : "registros"}
           </span>

@@ -17,22 +17,22 @@ export function AtelierBanner({ profile }: { profile?: Profile | null }) {
 
   return (
     <>
-      <Card className="border-dashed border-foreground/30 bg-muted/20">
-        <CardContent className="flex flex-col gap-3 py-3 sm:flex-row sm:items-center sm:justify-between">
+      <Card className="border-dashed border-primary/40 bg-[#FAF8FC]">
+        <CardContent className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <p className="text-sm font-medium">
+            <p className="text-sm font-semibold text-foreground">
               Configure os dados de retirada e Pix do seu ateliê
             </p>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-muted-foreground mt-0.5">
               Cadastre seu endereço, horário e chave Pix para gerar avisos prontos
-              de WhatsApp para seus clientes.
+              de WhatsApp para seus clientes com um clique.
             </p>
           </div>
           <Button
             type="button"
-            variant="secondary"
+            variant="primary"
             onClick={() => setModalOpen(true)}
-            className="shrink-0 text-xs sm:text-sm"
+            className="shrink-0 text-xs sm:text-sm shadow-xs"
           >
             Configurar Ateliê
           </Button>

@@ -21,6 +21,14 @@ const statusLabels: Record<Order["status"], string> = {
   cancelado: "Cancelado",
 };
 
+const statusToneMap: Record<Order["status"], "neutral" | "solid" | "lavanda" | "salvia" | "rosa"> = {
+  pendente: "neutral",
+  em_producao: "lavanda",
+  pronto: "salvia",
+  entregue: "salvia",
+  cancelado: "rosa",
+};
+
 interface CustomerHistoryModalProps {
   customer: Customer | null;
   orders: Order[];
@@ -84,20 +92,20 @@ export function CustomerHistoryModal({
 
         {/* Resumo do Cliente: Total de Pedidos e Total Gasto */}
         <div className="mb-4 grid grid-cols-2 gap-3">
-          <div className="rounded-md border border-border bg-muted/40 p-3">
-            <span className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
+          <div className="rounded-xl border border-border bg-muted/40 p-3.5">
+            <span className="text-xs uppercase tracking-wide text-muted-foreground font-semibold">
               Total de pedidos
             </span>
-            <p className="mt-1 text-xl font-semibold text-foreground">
+            <p className="mt-1 text-xl font-bold text-foreground">
               {totalPedidos} {totalPedidos === 1 ? "pedido" : "pedidos"}
             </p>
           </div>
 
-          <div className="rounded-md border border-border bg-muted/40 p-3">
-            <span className="text-xs uppercase tracking-wide text-muted-foreground font-medium">
+          <div className="rounded-xl border border-border bg-muted/40 p-3.5">
+            <span className="text-xs uppercase tracking-wide text-muted-foreground font-semibold">
               Valor total já gasto
             </span>
-            <p className="mt-1 text-xl font-semibold text-foreground">
+            <p className="mt-1 text-xl font-bold text-foreground">
               {formatCurrencyBRL(totalGasto)}
             </p>
           </div>
@@ -129,7 +137,7 @@ export function CustomerHistoryModal({
                       {order.description}
                     </TableTd>
                     <TableTd className="whitespace-nowrap text-sm">
-                      <Badge>{statusLabels[order.status]}</Badge>
+                      <Badge tone={statusToneMap[order.status]}>{statusLabels[order.status]}</Badge>
                     </TableTd>
                     <TableTd className="whitespace-nowrap text-right text-sm font-semibold">
                       {order.sale_price != null

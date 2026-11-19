@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Axis Calculator",
-  description: "Organização de pedidos, prazos, clientes e precificação.",
+  title: "Arte em Conta — Gestão para quem cria",
+  description: "Gestão financeira e de pedidos para papelaria personalizada e ateliês criativos.",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

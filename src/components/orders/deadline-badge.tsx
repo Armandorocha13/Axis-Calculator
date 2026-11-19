@@ -1,4 +1,4 @@
-import { Badge } from "@/components/ui/badge";
+import { Badge, type BadgeTone } from "@/components/ui/badge";
 import { getDeadlineUrgency, deadlineUrgencyLabel } from "@/lib/orders/deadline";
 import type { OrderStatus } from "@/lib/types/database.types";
 
@@ -10,11 +10,18 @@ export function DeadlineBadge({
   status: OrderStatus;
 }) {
   const urgency = getDeadlineUrgency(dueDate, status);
-  const tone =
-    urgency === "overdue" ? "accent" : urgency === "due-soon" ? "solid" : "neutral";
+
+  const toneMap: Record<string, BadgeTone> = {
+    overdue: "rosa",
+    "due-soon": "lavanda",
+    ok: "salvia",
+    "n/a": "neutral",
+  };
+
+  const tone = toneMap[urgency] ?? "neutral";
 
   return (
-    <Badge tone={tone} className="shrink-0">
+    <Badge tone={tone} className="shrink-0 font-medium">
       {deadlineUrgencyLabel[urgency]}
     </Badge>
   );

@@ -11,7 +11,7 @@ import { format, startOfMonth, endOfMonth } from "date-fns";
 import type { Order, CashFlowEntry } from "@/lib/types/database.types";
 
 export const metadata: Metadata = {
-  title: "Visão Geral | Axis Calculator",
+  title: "Visão Geral | Arte em Conta",
 };
 
 export default async function VisaoGeralPage() {

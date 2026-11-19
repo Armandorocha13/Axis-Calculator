@@ -34,7 +34,7 @@ export function WhatsAppButton({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md bg-emerald-600 px-2.5 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:ring-offset-1",
+        "inline-flex items-center gap-1.5 rounded-xl bg-[#4E6E49] px-2.5 py-1.5 text-xs font-medium text-white transition-all hover:bg-[#3F5B3B] shadow-xs active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#4E6E49]/30",
         className,
       )}
       {...props}

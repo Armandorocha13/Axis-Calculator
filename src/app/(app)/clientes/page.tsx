@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import { createClient } from "@/lib/supabase/server";
+
+export const metadata: Metadata = {
+  title: "Clientes | Arte em Conta",
+};
 import { getCurrentUserAndProfile } from "@/lib/auth/get-current-profile";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CustomerForm } from "@/components/customers/customer-form";

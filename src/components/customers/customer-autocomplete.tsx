@@ -68,7 +68,7 @@ export function CustomerAutocomplete({
           <button
             type="button"
             onClick={clearSelection}
-            className="shrink-0 rounded-md border border-foreground/70 px-3 text-sm text-muted-foreground hover:bg-muted"
+            className="shrink-0 rounded-xl border border-border px-3 text-sm text-muted-foreground hover:bg-muted/60 transition-colors"
           >
             ×
           </button>
@@ -76,14 +76,14 @@ export function CustomerAutocomplete({
       </div>
 
       {open && suggestions.length > 0 && (
-        <ul className="absolute left-0 right-0 top-full z-10 mt-1 max-h-56 overflow-y-auto rounded-md border border-border bg-background shadow-md">
+        <ul className="absolute left-0 right-0 top-full z-10 mt-1 max-h-56 overflow-y-auto rounded-xl border border-border bg-card shadow-lg">
           {suggestions.map((customer) => (
             <li key={customer.id}>
               <button
                 type="button"
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => selectCustomer(customer)}
-                className="block w-full px-3 py-2 text-left text-sm hover:bg-muted"
+                className="block w-full px-3.5 py-2 text-left text-sm text-foreground hover:bg-muted/50 transition-colors"
               >
                 {customer.name}
               </button>
@@ -93,7 +93,7 @@ export function CustomerAutocomplete({
       )}
 
       {open && query.trim() && suggestions.length === 0 && (
-        <div className="absolute left-0 right-0 top-full z-10 mt-1 rounded-md border border-border bg-background p-3 text-sm text-muted-foreground shadow-md">
+        <div className="absolute left-0 right-0 top-full z-10 mt-1 rounded-xl border border-border bg-card p-3 text-sm text-muted-foreground shadow-lg">
           Nenhum cliente encontrado.
         </div>
       )}

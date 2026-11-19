@@ -10,22 +10,22 @@ export function PriceResultCard({
 }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-      <Card>
-        <CardContent className="py-4">
-          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+      <Card className="border-border shadow-xs">
+        <CardContent className="p-5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Preço sugerido (lote)
           </p>
-          <p className="mt-1 text-3xl font-semibold">
+          <p className="mt-2 text-3xl font-bold tracking-tight text-foreground">
             {formatCurrencyBRL(Number.isFinite(suggestedPrice) ? suggestedPrice : 0)}
           </p>
         </CardContent>
       </Card>
-      <Card>
-        <CardContent className="py-4">
-          <p className="text-xs uppercase tracking-wide text-muted-foreground">
-            Lucro líquido
+      <Card className="border-salvia/40 bg-salvia-bg/30 shadow-xs">
+        <CardContent className="p-5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-salvia-foreground">
+            Lucro líquido estimado
           </p>
-          <p className="mt-1 text-3xl font-semibold">
+          <p className="mt-2 text-3xl font-bold tracking-tight text-salvia-foreground">
             {formatCurrencyBRL(Number.isFinite(netProfit) ? netProfit : 0)}
           </p>
         </CardContent>

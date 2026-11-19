@@ -22,15 +22,15 @@ export function Topbar({
 
   return (
     <>
-      <header className="sticky top-0 z-30 border-b border-border bg-background/90 backdrop-blur-md">
-        <div className="flex items-center justify-between gap-3 px-4 py-3 sm:px-6 sm:py-3.5">
-          <div className="flex min-w-0 items-center gap-2">
+      <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur-md">
+        <div className="flex items-center justify-between gap-3 px-4 py-2.5 sm:px-6">
+          <div className="flex min-w-0 items-center gap-3">
             <button
               type="button"
               onClick={() => setMenuOpen((open) => !open)}
               aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
               aria-expanded={menuOpen}
-              className="shrink-0 rounded-md p-2 hover:bg-muted md:hidden text-foreground"
+              className="shrink-0 rounded-xl p-2 hover:bg-muted/70 md:hidden text-foreground"
             >
               {menuOpen ? (
                 <svg
@@ -56,10 +56,10 @@ export function Topbar({
                 </svg>
               )}
             </button>
-            <div className="flex min-w-0 flex-col">
-              <Logo className="text-sm sm:text-lg" />
+            <div className="flex min-w-0 items-center gap-3">
+              <Logo size="md" priority />
               {businessName && (
-                <span className="truncate text-xs text-muted-foreground">
+                <span className="hidden sm:inline-block border-l border-border pl-3 text-xs font-medium text-muted-foreground truncate max-w-[200px]">
                   {businessName}
                 </span>
               )}
@@ -71,12 +71,12 @@ export function Topbar({
               type="button"
               variant="secondary"
               onClick={() => setSettingsOpen(true)}
-              className="text-xs sm:text-sm px-2.5 sm:px-3 h-9"
+              className="text-xs sm:text-sm px-3 h-9"
             >
               Configurações do Ateliê
             </Button>
             <form action={signOutAction} className="shrink-0">
-              <Button type="submit" variant="ghost" className="text-xs sm:text-sm h-9">
+              <Button type="submit" variant="ghost" className="text-xs sm:text-sm h-9 text-muted-foreground hover:text-foreground">
                 Sair
               </Button>
             </form>
@@ -89,7 +89,7 @@ export function Topbar({
               type="button"
               aria-label="Fechar menu"
               onClick={() => setMenuOpen(false)}
-              className="fixed inset-0 z-40 bg-black/25 backdrop-blur-2xs md:hidden"
+              className="fixed inset-0 z-40 bg-foreground/20 backdrop-blur-2xs md:hidden"
             />
             <div className="absolute left-0 right-0 top-full z-50 border-b border-border bg-card p-4 shadow-lg md:hidden">
               <SidebarNav isAdmin={isAdmin} onNavigate={() => setMenuOpen(false)} />

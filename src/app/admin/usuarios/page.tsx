@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,6 +15,10 @@ import { Button } from "@/components/ui/button";
 import { formatDateBR } from "@/lib/utils";
 import { toggleBanAction, deleteUserAction } from "./actions";
 import type { Profile } from "@/lib/types/database.types";
+
+export const metadata: Metadata = {
+  title: "Gerenciamento de Usuários | Arte em Conta",
+};
 
 export default async function AdminUsersPage() {
   const admin = createAdminClient();

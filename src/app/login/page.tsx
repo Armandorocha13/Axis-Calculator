@@ -1,6 +1,11 @@
+import type { Metadata } from "next";
 import { Logo } from "@/components/layout/logo";
 import { Card, CardContent } from "@/components/ui/card";
 import { LoginForm } from "./login-form";
+
+export const metadata: Metadata = {
+  title: "Login | Arte em Conta",
+};
 
 export default function LoginPage() {
   return (

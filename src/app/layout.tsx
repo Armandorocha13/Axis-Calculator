@@ -14,8 +14,27 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Arte em Conta — Gestão para quem cria",
-  description: "Gestão financeira e de pedidos para papelaria personalizada e ateliês criativos.",
+  title: {
+    default: "Arte em Conta",
+    template: "%s | Arte em Conta",
+  },
+  description:
+    "Gestão para quem cria. Gestão financeira e de pedidos para papelaria personalizada e ateliês criativos.",
+  applicationName: "Arte em Conta",
+  appleWebApp: {
+    capable: true,
+    title: "Arte em Conta",
+    statusBarStyle: "default",
+  },
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.ico" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", type: "image/png" }],
+    shortcut: "/favicon.ico",
+  },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

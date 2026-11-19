@@ -1,0 +1,23 @@
+{
+  "name": "Arte em Conta",
+  "short_name": "Arte em Conta",
+  "description": "Gestão para quem cria. Gestão financeira e de pedidos para papelaria personalizada e ateliês criativos.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F7F2E9",
+  "theme_color": "#9B87C7",
+  "icons": [
+    {
+      "src": "/icon.png",
+      "sizes": "1024x682",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "1024x682",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,7 +23,15 @@ export default async function EditCustomerPage({
 
   return (
     <div className="flex flex-col gap-6">
-      <h1 className="text-xl font-semibold">Editar cliente</h1>
+      <div>
+        <Link
+          href="/meus-registros?aba=clientes"
+          className="text-xs font-medium text-muted-foreground hover:text-foreground inline-flex items-center gap-1 mb-2 transition-colors"
+        >
+          <span>← Voltar para Meus Registros</span>
+        </Link>
+        <h1 className="text-xl font-semibold">Editar cliente</h1>
+      </div>
       <Card className="max-w-lg">
         <CardHeader>
           <CardTitle>{customer.name}</CardTitle>

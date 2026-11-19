@@ -70,10 +70,11 @@ export async function createOrderAction(
   if (error) return { error: "Não foi possível salvar o pedido." };
 
   revalidatePath("/pedidos");
+  revalidatePath("/meus-registros");
   revalidatePath("/dashboard");
   revalidatePath("/visao-geral");
   revalidatePath("/fluxo-de-caixa");
-  redirect("/pedidos");
+  redirect("/meus-registros?aba=pedidos");
 }
 
 export async function updateOrderAction(
@@ -105,16 +106,18 @@ export async function updateOrderAction(
   if (error) return { error: "Não foi possível atualizar o pedido." };
 
   revalidatePath("/pedidos");
+  revalidatePath("/meus-registros");
   revalidatePath("/dashboard");
   revalidatePath("/visao-geral");
   revalidatePath("/fluxo-de-caixa");
-  redirect("/pedidos");
+  redirect("/meus-registros?aba=pedidos");
 }
 
 export async function deleteOrderAction(id: string) {
   const supabase = await createClient();
   await supabase.from("orders").delete().eq("id", id);
   revalidatePath("/pedidos");
+  revalidatePath("/meus-registros");
   revalidatePath("/dashboard");
   revalidatePath("/visao-geral");
   revalidatePath("/fluxo-de-caixa");
@@ -163,6 +166,7 @@ export async function settleOrderPaymentAction(
   }
 
   revalidatePath("/pedidos");
+  revalidatePath("/meus-registros");
   revalidatePath("/dashboard");
   revalidatePath("/visao-geral");
   revalidatePath("/fluxo-de-caixa");

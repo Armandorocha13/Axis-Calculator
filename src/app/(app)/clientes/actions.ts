@@ -42,7 +42,8 @@ export async function createCustomerAction(
   if (error) return { error: "Não foi possível salvar o cliente." };
 
   revalidatePath("/clientes");
-  redirect("/clientes");
+  revalidatePath("/meus-registros");
+  redirect("/meus-registros?aba=clientes");
 }
 
 export async function updateCustomerAction(
@@ -68,11 +69,13 @@ export async function updateCustomerAction(
   if (error) return { error: "Não foi possível atualizar o cliente." };
 
   revalidatePath("/clientes");
-  redirect("/clientes");
+  revalidatePath("/meus-registros");
+  redirect("/meus-registros?aba=clientes");
 }
 
 export async function deleteCustomerAction(id: string) {
   const supabase = await createClient();
   await supabase.from("customers").delete().eq("id", id);
   revalidatePath("/clientes");
+  revalidatePath("/meus-registros");
 }

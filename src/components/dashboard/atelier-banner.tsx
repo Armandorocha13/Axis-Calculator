@@ -19,7 +19,7 @@ export function AtelierBanner({ profile }: { profile?: Profile | null }) {
       <CardContent className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <p className="text-sm font-semibold text-foreground">
-            Configure os dados de retirada e Pix do seu ateliê
+            Configure os dados de retirada e Pix da sua loja
           </p>
           <p className="text-xs text-muted-foreground mt-0.5">
             Cadastre seu endereço, horário e chave Pix para gerar avisos prontos
@@ -32,7 +32,7 @@ export function AtelierBanner({ profile }: { profile?: Profile | null }) {
           onClick={openSettings}
           className="shrink-0 text-xs sm:text-sm shadow-xs cursor-pointer"
         >
-          Configurar Ateliê
+          Configurar Loja
         </Button>
       </CardContent>
     </Card>

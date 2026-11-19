@@ -165,7 +165,7 @@ export function AtelierSettingsModal({
         <div className="flex items-center justify-between border-b border-border/80 px-6 py-4 bg-card shrink-0">
           <div>
             <h2 className="text-base font-semibold text-foreground">
-              Configurações do Ateliê
+              Configurações da Loja
             </h2>
             <p className="text-xs text-muted-foreground mt-0.5">
               Personalize os dados de retirada e o modelo de mensagem do WhatsApp
@@ -195,7 +195,7 @@ export function AtelierSettingsModal({
           onSubmit={handleSubmit}
           className="flex flex-col flex-1 overflow-y-auto px-6 py-5 gap-6"
         >
-          {/* Seção 1: Dados do Ateliê */}
+          {/* Seção 1: Dados da Loja */}
           <div className="space-y-4">
             <div className="border-b border-border/60 pb-2">
               <h3 className="text-sm font-semibold text-foreground">
@@ -208,12 +208,12 @@ export function AtelierSettingsModal({
 
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
               <div className="sm:col-span-2">
-                <Label htmlFor="business_name">Nome do Ateliê / Marca</Label>
+                <Label htmlFor="business_name">Nome da Loja / Marca</Label>
                 <Input
                   id="business_name"
                   name="business_name"
                   defaultValue={profile?.business_name ?? ""}
-                  placeholder="Ex: Ateliê Mãos de Fada"
+                  placeholder="Ex: Minha Loja Criativa"
                 />
               </div>
 
@@ -260,7 +260,7 @@ export function AtelierSettingsModal({
                   2. Modelo da Mensagem Automática do WhatsApp
                 </h3>
                 <p className="text-xs text-muted-foreground">
-                  Edite o texto com o tom de voz do seu ateliê. As variáveis entre chaves são preenchidas na hora do envio.
+                  Edite o texto com o tom de voz da sua loja. As variáveis entre chaves são preenchidas na hora do envio.
                 </p>
               </div>
               <Button

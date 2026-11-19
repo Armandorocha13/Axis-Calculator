@@ -63,7 +63,7 @@ export async function saveAtelierSettingsAction(
   }
 
   if (error) {
-    return { error: "Não foi possível salvar as configurações do ateliê." };
+    return { error: "Não foi possível salvar as configurações da loja." };
   }
 
   revalidatePath("/visao-geral");

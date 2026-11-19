@@ -190,7 +190,7 @@ export function SidebarNav({
 
   return (
     <div className="flex flex-col justify-between min-h-full h-full gap-6">
-        {/* Bloco Superior: Navegação e Configurar Ateliê */}
+        {/* Bloco Superior: Navegação e Configurar Loja */}
         <div className="flex flex-col gap-1.5">
           <nav className="flex flex-col gap-1">
             {navItems.map((item) => {
@@ -224,7 +224,7 @@ export function SidebarNav({
             })}
           </nav>
 
-          {/* Divisor suave e Ação de Configurar Ateliê integrada ao menu */}
+          {/* Divisor suave e Ação de Configurar Loja integrada ao menu */}
           <div className="pt-2 mt-1 border-t border-border/70">
             <button
               type="button"
@@ -246,7 +246,7 @@ export function SidebarNav({
                   <circle cx="12" cy="12" r="3" />
                 </svg>
               </span>
-              <span>Configurar Ateliê</span>
+              <span>Configurar Loja</span>
             </button>
           </div>
         </div>

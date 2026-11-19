@@ -58,13 +58,13 @@ export const WHATSAPP_TEMPLATE_VARIABLES: {
   {
     tag: "{chave_pix}",
     label: "Chave Pix",
-    description: "Chave Pix configurada no ateliê",
+    description: "Chave Pix configurada na loja",
     example: "11987654321",
   },
   {
     tag: "{atelie}",
-    label: "Nome do Ateliê",
-    description: "Nome do seu ateliê ou marca",
+    label: "Nome da Loja",
+    description: "Nome da sua loja ou marca",
     example: "Arte em Conta",
   },
 ];
@@ -138,7 +138,7 @@ export function renderWhatsAppMessage(
     .replace(/\{pagamento\}/gi, paymentLine)
     .replace(/\{saldo\}|\{valor_restante\}/gi, saldo)
     .replace(/\{chave_pix\}/gi, pixKeyOnly)
-    .replace(/\{atelie\}|\{nome_atelie\}/gi, atelie);
+    .replace(/\{atelie\}|\{nome_atelie\}|\{loja\}|\{nome_loja\}/gi, atelie);
 }
 
 /**

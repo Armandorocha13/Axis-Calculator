@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
+import type { Profile } from "@/lib/types/database.types";
 
 export interface AtelierSettingsState {
   error?: string;
@@ -30,7 +31,7 @@ export async function saveAtelierSettingsAction(
   const whatsapp_template =
     rawTemplate !== null ? String(rawTemplate).trim() : undefined;
 
-  const updateData: Record<string, unknown> = {
+  const updateData: Partial<Profile> = {
     pickup_address: pickup_address || null,
     pickup_hours: pickup_hours || null,
     pix_key: pix_key || null,
@@ -50,7 +51,7 @@ export async function saveAtelierSettingsAction(
 
   // Fallback caso a coluna whatsapp_template ainda não tenha sido migrada no banco
   if (error && "whatsapp_template" in updateData) {
-    const fallbackData = { ...updateData };
+    const fallbackData: Partial<Profile> = { ...updateData };
     delete fallbackData.whatsapp_template;
     const retry = await supabase
       .from("profiles")

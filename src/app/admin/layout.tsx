@@ -19,8 +19,8 @@ export default async function AdminLayout({
     <div className="flex min-h-screen flex-1 flex-col">
       <Topbar businessName={profile.business_name} isAdmin profile={profile} />
       <div className="flex flex-1 flex-col md:flex-row">
-        <aside className="hidden shrink-0 border-r border-border p-4 md:block md:w-56">
-          <SidebarNav isAdmin />
+        <aside className="hidden shrink-0 border-r border-border p-4 md:flex md:w-60 md:flex-col md:sticky md:top-[57px] md:h-[calc(100vh-57px)]">
+          <SidebarNav isAdmin profile={profile} />
         </aside>
         <main className="flex-1 overflow-x-hidden p-4 sm:p-6">{children}</main>
       </div>

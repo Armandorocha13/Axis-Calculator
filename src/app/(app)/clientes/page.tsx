@@ -6,7 +6,7 @@ import { CustomerForm } from "@/components/customers/customer-form";
 import { createCustomerAction } from "./actions";
 
 export const metadata: Metadata = {
-  title: "Novo Cliente | Arte em Conta",
+  title: "Novo Cliente",
 };
 
 export default function CustomersPage() {

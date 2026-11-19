@@ -8,7 +8,7 @@ import { createOrderAction } from "./actions";
 import type { Customer } from "@/lib/types/database.types";
 
 export const metadata: Metadata = {
-  title: "Novo Pedido | Arte em Conta",
+  title: "Novo Pedido",
 };
 
 export default async function OrdersPage() {

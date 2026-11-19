@@ -5,7 +5,7 @@ import { RecordsView } from "@/components/records/records-view";
 import type { Customer, Order } from "@/lib/types/database.types";
 
 export const metadata: Metadata = {
-  title: "Meus Registros | Arte em Conta",
+  title: "Meus Registros",
 };
 
 export default async function MeusRegistrosPage({

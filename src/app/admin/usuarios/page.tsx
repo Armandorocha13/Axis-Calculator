@@ -17,7 +17,7 @@ import { toggleBanAction, deleteUserAction } from "./actions";
 import type { Profile } from "@/lib/types/database.types";
 
 export const metadata: Metadata = {
-  title: "Gerenciamento de Usuários | Arte em Conta",
+  title: "Gerenciamento de Usuários",
 };
 
 export default async function AdminUsersPage() {

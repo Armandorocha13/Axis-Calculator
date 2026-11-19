@@ -8,7 +8,7 @@ import { format, parse, startOfMonth, endOfMonth, isValid } from "date-fns";
 import type { CashFlowEntry } from "@/lib/types/database.types";
 
 export const metadata: Metadata = {
-  title: "Fluxo de Caixa | Arte em Conta",
+  title: "Fluxo de Caixa",
 };
 
 export default async function CashFlowPage({

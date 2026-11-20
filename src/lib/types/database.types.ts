@@ -93,6 +93,35 @@ export type FinancialSummary = {
   previsto_a_receber: number;
 };
 
+export type StockTransactionType = "entrada" | "saida";
+
+export type StockItem = {
+  id: string;
+  user_id: string;
+  name: string;
+  unit: string;
+  current_quantity: number;
+  min_quantity: number;
+  last_purchase_total: number;
+  last_purchase_quantity: number;
+  unit_cost: number;
+  notes: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type StockTransaction = {
+  id: string;
+  item_id: string;
+  user_id: string;
+  type: StockTransactionType;
+  quantity: number;
+  unit_cost: number | null;
+  total_cost: number | null;
+  notes: string | null;
+  created_at: string;
+};
+
 export type Database = {
   public: {
     Tables: {
@@ -139,6 +168,26 @@ export type Database = {
           amount: number;
         };
         Update: Partial<CashFlowEntry>;
+        Relationships: [];
+      };
+      stock_items: {
+        Row: StockItem;
+        Insert: Partial<StockItem> & {
+          user_id: string;
+          name: string;
+        };
+        Update: Partial<StockItem>;
+        Relationships: [];
+      };
+      stock_transactions: {
+        Row: StockTransaction;
+        Insert: Partial<StockTransaction> & {
+          item_id: string;
+          user_id: string;
+          type: StockTransactionType;
+          quantity: number;
+        };
+        Update: Partial<StockTransaction>;
         Relationships: [];
       };
     };
